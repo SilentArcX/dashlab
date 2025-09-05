@@ -1,24 +1,20 @@
+// index.ts
+
+// 외부 라이브러리 임포트
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 
-import usageRoutes from './routes/usage';
-import timeRoutes from './routes/time';
+// 내부 모듈 임포트
+import { ENV, PORT, ALLOWED_ORIGINS } from './config/env';
+import statusRoutes from './routes/status';
 
-dotenv.config();
-const env = process.env.NODE_ENV || 'development';
-
-const port = Number(process.env.PORT) || 3000;
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || '')
-  .split(',')
-  .map(o => o.trim())
-  .filter(Boolean);
-
+// Express 앱 생성
 const app = express();
 
+// CORS 설정: 허용된 origin만 통과, 그 외는 경고
 app.use(cors({
   origin(origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin || ALLOWED_ORIGINS.includes(origin)) {
       callback(null, true);
     } else {
       console.warn(`[CORS] Blocked origin: ${origin}`);
@@ -27,20 +23,27 @@ app.use(cors({
   }
 }));
 
-app.get('/env-info', (_req, res) => {
-  res.json({ environment: process.env.ENV_INDICATOR || 'No environment info' });
+// 환경 정보 확인용 라우트
+app.get('/env', (_req, res) => {
+  res.json({
+    environment: ENV || 'No environment info',
+    port: PORT || 'No port info',
+    allowedOrigins: ALLOWED_ORIGINS.length ? ALLOWED_ORIGINS : 'No allowed origins'
+  });
 });
 
-app.use(usageRoutes);
-app.use(timeRoutes);
+// 주요 라우트 등록
+app.use('/status', statusRoutes);
 
-app.listen(port, () => {
-  console.log(`\n${process.env.ENV_INDICATOR} Server running on port ${port}`);
-  if (env !== 'production') {
-    console.log(`→ http://localhost:${port}`);
-    console.log(`→ Environment Info: http://localhost:${port}/env-info`);
+// 서버 시작
+app.listen(PORT, () => {
+  console.log(`\n${ENV} Server running on port ${PORT}`);
+
+  if (ENV !== 'production') {
+    console.log(`→ http://localhost:${PORT}/status`);
   }
+  
   console.log(`\n🌐 Allowed Origins:`);
-  allowedOrigins.forEach(origin => console.log(`   - ${origin}`));
+  ALLOWED_ORIGINS.forEach(origin => console.log(`   - ${origin}`));
   console.log('');
 });

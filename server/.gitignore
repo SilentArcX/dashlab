@@ -1,21 +1,16 @@
-# 종속성
+# Dependencies
 node_modules/
 
-# 환경 변수 파일들 (민감한 정보 포함)
-.env
-.env.prod
-
-# 빌드 결과물
+# Build output
 dist/
 
-# 로그 파일
+# Environment / sensitive files
+.env
+.env.production
+
+# Logs
 *.log
-logs/
 
-# 운영체제별 파일
-.DS_Store
-Thumbs.db
-
-# IDE 설정
-.vscode/settings.json
+# IDE / editor files
+.vscode/
 .idea/
