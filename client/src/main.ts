@@ -1,6 +1,4 @@
 // client/src/main.ts
-import { startClock } from './modules/clock';
-import { startStatsUpdater } from './modules/stats';
+import { startStatsUpdater } from './modules/systemMonitor';
 
-startClock();
 startStatsUpdater();
