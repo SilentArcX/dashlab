@@ -6,7 +6,7 @@ import cors from 'cors';
 
 // 내부 모듈 임포트
 import { ENV, PORT, ALLOWED_ORIGINS } from './config/env';
-import statusRoutes from './routes/status';
+import statsRoutes from './routes/stats';
 
 // Express 앱 생성
 const app = express();
@@ -33,14 +33,14 @@ app.get('/env', (_req, res) => {
 });
 
 // 주요 라우트 등록
-app.use('/status', statusRoutes);
+app.use('/stats', statsRoutes);
 
 // 서버 시작
 app.listen(PORT, () => {
   console.log(`\n${ENV} Server running on port ${PORT}`);
 
   if (ENV !== 'production') {
-    console.log(`→ http://localhost:${PORT}/status`);
+    console.log(`→ http://localhost:${PORT}/stats`);
   }
   
   console.log(`\n🌐 Allowed Origins:`);

@@ -1,3 +1,6 @@
-import { renderDashboard } from './render/renderDashboard';
+// client/src/main.ts
+import { startClock } from './modules/clock';
+import { startStatsUpdater } from './modules/stats';
 
-renderDashboard();
+startClock();
+startStatsUpdater();
