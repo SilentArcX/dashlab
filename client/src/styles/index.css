@@ -12,7 +12,7 @@ header {
     font-size: 2rem;
     font-weight: bold;
     vertical-align: middle;
-    line-height: 1;
+    line-height: 1.2;
     padding: 0.5rem 1rem;
     margin: 0;
     cursor: pointer;
@@ -28,7 +28,7 @@ header {
 }
 
 .time-display {
-    font-size: clamp(3rem, 25vw, 8rem);
+    font-size: clamp(2rem, 20vw, 8rem);
     margin-bottom: 1rem;
     user-select: none;
 }
@@ -67,7 +67,7 @@ header {
 #root {
     max-width: 1080px;
     margin: 0 auto;
-    padding: clamp(0.5rem, 10vw, 2rem);
+    padding: clamp(0.5rem, 5vw, 2rem);
     text-align: center;
 }
 
