@@ -23,6 +23,9 @@ app.use(cors({
   }
 }));
 
+// JSON 파싱
+app.use(express.json());
+
 // 환경 정보 확인용 라우트
 app.get('/env', (_req, res) => {
   res.json({
@@ -32,18 +35,28 @@ app.get('/env', (_req, res) => {
   });
 });
 
-// 주요 라우트 등록
-app.use('/stats', statsRoutes);
+// -------------------------------
+// 서버 시작 함수
+// -------------------------------
+async function startServer() {
+  try {
+    app.use('/stats', statsRoutes);
 
-// 서버 시작
-app.listen(PORT, () => {
-  console.log(`\n${ENV} Server running on port ${PORT}`);
+    app.listen(PORT, async () => {
+      const url = `http://localhost:${PORT}`;
+      console.log(`\n${ENV} Server running on port ${PORT}`);
+      console.log(`→ ${url}/stats`);
 
-  if (ENV !== 'production') {
-    console.log(`→ http://localhost:${PORT}/stats`);
+      console.log(`\nAllowed Origins:`);
+      ALLOWED_ORIGINS.forEach(origin => console.log(`   - ${origin}`));
+      console.log('');
+    });
+
+  } catch (err) {
+    console.error("서버 시작 실패:", err);
+    process.exit(1);
   }
-  
-  console.log(`\n🌐 Allowed Origins:`);
-  ALLOWED_ORIGINS.forEach(origin => console.log(`   - ${origin}`));
-  console.log('');
-});
+}
+
+// 서버 실행
+startServer();
