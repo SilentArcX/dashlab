@@ -1,5 +1,3 @@
-# Dashboard
-
 ## Visit
 [https://dashboard.mayo-lab.xyz/](https://dashboard.mayo-lab.xyz/)
 
