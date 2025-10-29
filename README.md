@@ -1,10 +1,8 @@
-# Mayo Dashboard
+# Dashboard
 
 ## Visit
 [https://dashboard.mayo-lab.xyz/](https://dashboard.mayo-lab.xyz/)
 
-## Features
-- 서버가 깨어있을 때 실시간 데이터 확인 가능
-
 ## Notes
-- 테스트 및 학습용
+- 사이트가 비어있으면 서버 꺼놓은 상태입니다
+- Dashboard 여러번 누르면 사라집니다
